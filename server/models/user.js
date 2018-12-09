@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 var UserSchema = new mongoose.Schema({
     email: {
@@ -31,6 +32,22 @@ var UserSchema = new mongoose.Schema({
     }]
 });
 
+// called whenever the user saves:
+// if a user's password is modified, then re-hash it!
+UserSchema.pre('save', function(next) {
+    var user = this;
+    if(user.isModified('password')) {
+        bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(user.password, salt, (err, hash) => {
+                user.password = hash;
+                next();
+            });
+        });
+    } else {
+        next();
+    }
+});
+
 
 UserSchema.methods.toJSON = function() {
     let user = this;
@@ -42,7 +59,7 @@ UserSchema.methods.toJSON = function() {
 UserSchema.methods.generateAuthToken = function() {
     let user = this;
     let access = 'auth';
-    let token = jwt.sign({_id: user._id.toHexString(), access}, 'abc123').toString();
+    let token = jwt.sign({_id: user._id.toHexString(), access}, 'abc123', {expiresIn: 60*60*24*30}).toString();
     user.tokens = user.tokens.concat([{access, token}]);
     
     return user.save().then(() => {
@@ -51,19 +68,16 @@ UserSchema.methods.generateAuthToken = function() {
 };
 
 UserSchema.statics.findByToken = function(token) {
-    let User = this;
+    let user = this;
     let decoded;
-
     try {
         decoded = jwt.verify(token, 'abc123');
+        //console.log(decoded);
     } catch(e) {
-        // return new Promise((resolve, reject) => {
-        //     reject();
-        // });
-        return Promise.reject('test'); //uguale al precedente
+        return Promise.reject(e); //uguale al precedente
     }
 
-    return User.findOne({
+    return user.findOne({
         '_id': decoded._id,
         'tokens.token': token,
         'tokens.access': 'auth'

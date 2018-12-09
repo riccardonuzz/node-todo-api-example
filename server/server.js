@@ -13,6 +13,7 @@ const { authenticate } = require('./middlewares/authenticate');
 
 
 let app = express();
+app.disable('x-powered-by');
 const port = process.env.PORT;
 
 app.use(bodyParser.json());
