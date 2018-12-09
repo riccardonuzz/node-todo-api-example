@@ -48,7 +48,7 @@ UserSchema.pre('save', function(next) {
     }
 });
 
-
+// this method set up
 UserSchema.methods.toJSON = function() {
     let user = this;
     let userObject = user.toObject();
@@ -84,6 +84,27 @@ UserSchema.statics.findByToken = function(token) {
     });
 };
 
-let User = mongoose.model('User', UserSchema);
+UserSchema.statics.findByCredentials = function(email, password) {
+    let User = this;
 
+    return User.findOne({ email }).then(user => {
+        if(!user) {
+            return Promise.reject();
+        }
+
+        return new Promise((resolve, reject) => {
+            // Use bcrypt.compare to comparre password and user.password
+            bcrypt.compare(password, user.password, (err, res) => {
+                if(res) {
+                    resolve(user);
+                } else {
+                    reject();
+                }
+            });
+        });
+    });
+};
+
+
+let User = mongoose.model('User', UserSchema);
 module.exports = { User };
