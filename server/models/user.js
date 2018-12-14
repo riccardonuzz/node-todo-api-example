@@ -59,7 +59,7 @@ UserSchema.methods.toJSON = function() {
 UserSchema.methods.generateAuthToken = function() {
     let user = this;
     let access = 'auth';
-    let token = jwt.sign({_id: user._id.toHexString(), access}, 'abc123', {expiresIn: 60*60*24*30}).toString();
+    let token = jwt.sign({_id: user._id.toHexString(), access}, process.env.JWT_SECRET, {expiresIn: 60*60*24*30}).toString();
     user.tokens = user.tokens.concat([{access, token}]);
     
     return user.save().then(() => {
@@ -82,7 +82,7 @@ UserSchema.statics.findByToken = function(token) {
     let user = this;
     let decoded;
     try {
-        decoded = jwt.verify(token, 'abc123');
+        decoded = jwt.verify(token, process.env.JWT_SECRET);
         //console.log(decoded);
     } catch(e) {
         return Promise.reject(e); //uguale al precedente
