@@ -1,0 +1,389 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "Todo App",
+    "description": "TODO: Add Description",
+    "contact": {}
+  },
+  "host": "example.com",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/todos": {
+      "get": {
+        "description": "TODO: Add Description",
+        "summary": "GET /todos",
+        "tags": [
+          "Todos"
+        ],
+        "operationId": "TodosGet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-auth",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "description": "TODO: Add Description",
+        "summary": "POST /todos",
+        "tags": [
+          "Todos"
+        ],
+        "operationId": "TodosPost",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-auth",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/POST~1todosRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/todos/{todoId}": {
+      "get": {
+        "description": "TODO: Add Description",
+        "summary": "GET /todos/:id",
+        "tags": [
+          "Todos"
+        ],
+        "operationId": "TodosByTodoIdGet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-auth",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "todoId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "description": "TODO: Add Description",
+        "summary": "DELETE /todos/:id",
+        "tags": [
+          "Todos"
+        ],
+        "operationId": "TodosByTodoIdDelete",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-auth",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "todoId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "patch": {
+        "description": "TODO: Add Description",
+        "summary": "PATCH /todos/:id",
+        "tags": [
+          "Todos"
+        ],
+        "operationId": "TodosByTodoIdPatch",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-auth",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/PATCH~1todos~1:idRequest"
+            }
+          },
+          {
+            "name": "todoId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "description": "TODO: Add Description",
+        "summary": "POST /users",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "UsersPost",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/POST~1usersRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/users/me": {
+      "get": {
+        "description": "TODO: Add Description",
+        "summary": "GET /users/me",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "UsersMeGet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-auth",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "description": "TODO: Add Description",
+        "summary": "POST /users/login",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "UsersLoginPost",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/POST~1users~1loginRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/users/me/token": {
+      "delete": {
+        "description": "TODO: Add Description",
+        "summary": "DELETE /users/me/token",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "UsersMeTokenDelete",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-auth",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "POST/todosRequest": {
+      "title": "POST/todosRequest",
+      "example": {
+        "text": "Todo 1"
+      },
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "text"
+      ]
+    },
+    "PATCH/todos/:idRequest": {
+      "title": "PATCH/todos/:idRequest",
+      "example": {
+        "completed": true
+      },
+      "type": "object",
+      "properties": {
+        "completed": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "completed"
+      ]
+    },
+    "POST/usersRequest": {
+      "title": "POST/usersRequest",
+      "example": {
+        "email": "example@email.it",
+        "password": "password"
+      },
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
+    },
+    "POST/users/loginRequest": {
+      "title": "POST/users/loginRequest",
+      "example": {
+        "email": "example@email.it",
+        "password": "password"
+      },
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
+    }
+  },
+  "tags": [
+    {
+      "name": "Users",
+      "description": ""
+    }
+  ]
+}

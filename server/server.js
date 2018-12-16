@@ -6,6 +6,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { ObjectID } = require('mongodb');
 
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./../APIDefinition.json');
+
+
 const { Todo } = require('./models/todo');
 const { User } = require('./models/user');
 
@@ -17,6 +22,8 @@ app.disable('x-powered-by');
 const port = process.env.PORT;
 
 app.use(bodyParser.json());
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 app.post('/todos', authenticate, (req, res) => {
     let todo = new Todo({
